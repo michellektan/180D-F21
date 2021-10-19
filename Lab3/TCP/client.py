@@ -1,20 +1,11 @@
-import socket
+import socket               
 
-s = socket.socket()
-host = socket.gethostname()  #ip of raspberry pi
-port = 8010
-s.bind((host, port))
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)        
+host = socket.gethostname() # ip of raspberry pi 
+port = 8080              
+client.connect((host, 8080))
+client.send('I am CLIENT'.encode())
+from_server = client.recv(4096)
+client.close()
+print(from_server.decode('ascii'))
 
-s.listen(5)
-while True:
-  c, addr = s.accept()
-  from_client = ''
-  print ('Got connection from',addr)
-  while True:
-    data = c.recv(4096)
-    if not data: break
-    #from_client += data
-    print(data)
-    c.send('I am SERVER'.encode())
-  c.close()
-  print("Client disconnected")
