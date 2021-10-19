@@ -1,9 +1,10 @@
 import socket               
 
-client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)        
-host = socket.gethostname() # ip of raspberry pi 
+client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)  
+host = socket.gethostname()      
+host_ip = socket.gethostbyname(host) # change to ip of server device if not being run locally 
 port = 8080              
-client.connect((host, 8080))
+client.connect((host_ip, 8080))
 client.send('I am CLIENT'.encode())
 from_server = client.recv(4096)
 client.close()

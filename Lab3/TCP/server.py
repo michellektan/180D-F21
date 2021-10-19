@@ -1,9 +1,10 @@
 import socket
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-host = socket.gethostname()  #ip of device (laptop, rpi, etc)
+host = socket.gethostname() 
+host_ip = socket.gethostbyname(host) # ip of device
 port = 8080
-s.bind((host, port))
+s.bind((host_ip, port))
 
 s.listen(5)
 while True:
